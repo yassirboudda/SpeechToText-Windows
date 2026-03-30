@@ -4,6 +4,25 @@ Voxtral-powered speech-to-text that lives in your Windows system tray.
 
 Record speech, get instant transcription via Mistral's Voxtral API, and have it automatically typed at your cursor or copied to clipboard.
 
+## Download & Install (No Python Required)
+
+> **Go to the [Releases page](https://github.com/bouddahami/SpeechToText-Windows/releases/latest) and download:**
+
+| File | Description |
+|------|-------------|
+| **`SpeechToText-Setup.exe`** | **Installer (recommended)** — installs to Program Files, creates Start Menu & Desktop shortcuts, optional auto-start on login |
+| **`SpeechToText.exe`** | **Portable** — single file, no install needed, just double-click and run |
+
+### Quick start
+
+1. Download **`SpeechToText-Setup.exe`** and run it
+2. The app appears in the **system tray** (bottom-right of your taskbar, near the clock)
+3. Right-click the tray icon → **Add API Key**
+4. Get a free API key from [console.mistral.ai](https://console.mistral.ai/) (create an account, go to API Keys)
+5. Paste your key, click **Test Key**, then **Save**
+6. Right-click the tray icon → **Start Recording** → speak → **Stop Recording**
+7. Your transcription is automatically typed where your cursor is!
+
 ## Features
 
 - **System tray app** — lives in the Windows notification area
@@ -14,13 +33,18 @@ Record speech, get instant transcription via Mistral's Voxtral API, and have it 
 - **API key management** — add/test/manage your Mistral API key from Settings
 - **2-minute recording limit** — optimized for Mistral's free tier
 
-## Requirements
+## Install from Source (for developers)
+
+<details>
+<summary>Click to expand developer instructions</summary>
+
+### Requirements
 
 - Windows 10/11
 - Python 3.9+
 - A [Mistral API key](https://console.mistral.ai/)
 
-## Installation
+### Installation
 
 ```powershell
 # Clone the repo
@@ -34,7 +58,7 @@ pip install -r requirements.txt
 pip install .
 ```
 
-## Usage
+### Usage
 
 ```powershell
 speechtotext
@@ -46,24 +70,24 @@ Or run directly:
 python -m speechtotext
 ```
 
-On first launch, you'll see only "🔑 Add API Key" in the tray menu. Click it to enter and test your Mistral API key.
+### Build the .exe yourself
+
+```powershell
+pip install pyinstaller
+build.bat
+# Output: dist\SpeechToText.exe
+```
+
+</details>
 
 ## Auto-start on Login
 
-### Option 1: Startup Folder
+If you used the **installer**, check the "Start when Windows starts" option during setup.
+
+Otherwise:
 
 1. Press `Win+R`, type `shell:startup`, press Enter
-2. Create a shortcut to `speechtotext.exe` (usually in `%LOCALAPPDATA%\Programs\Python\PythonXX\Scripts\`)
-
-### Option 2: Registry
-
-```powershell
-# Find the path
-where speechtotext
-
-# Add to startup (replace path as needed)
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v SpeechToText /t REG_SZ /d "C:\Users\YOU\AppData\Local\Programs\Python\Python312\Scripts\speechtotext.exe" /f
-```
+2. Copy `SpeechToText.exe` (or a shortcut to it) into that folder
 
 ## Configuration
 

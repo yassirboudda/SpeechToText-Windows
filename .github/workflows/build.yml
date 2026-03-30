@@ -1,0 +1,79 @@
+name: Build Windows Installer
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build executable
+        run: pyinstaller speechtotext.spec --clean --noconfirm
+
+      - name: Verify build
+        run: |
+          if (Test-Path "dist\SpeechToText.exe") {
+            $size = (Get-Item "dist\SpeechToText.exe").Length / 1MB
+            Write-Host "Build OK: SpeechToText.exe ($([math]::Round($size, 1)) MB)"
+          } else {
+            Write-Error "Build failed: SpeechToText.exe not found"
+            exit 1
+          }
+
+      - name: Build installer with Inno Setup
+        run: |
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss
+
+      - name: Upload standalone exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: SpeechToText-Portable
+          path: dist/SpeechToText.exe
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: SpeechToText-Setup
+          path: installer/SpeechToText-Setup.exe
+
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/SpeechToText.exe
+            installer/SpeechToText-Setup.exe
+          body: |
+            ## SpeechToText for Windows
+
+            ### Download options:
+            - **`SpeechToText-Setup.exe`** — Installer (recommended). Installs to Program Files, creates shortcuts, optional auto-start.
+            - **`SpeechToText.exe`** — Portable single-file executable. No installation needed, just run it.
+
+            ### First launch:
+            1. Run the app — it appears in the system tray (bottom-right of your taskbar)
+            2. Right-click the tray icon → **Add API Key**
+            3. Get a free API key from [console.mistral.ai](https://console.mistral.ai/)
+            4. Paste it, click **Test Key**, then **Save**
+            5. Right-click the tray icon → **Start Recording** → speak → **Stop Recording**
+            6. Your transcription is automatically typed at your cursor!
+          generate_release_notes: true
