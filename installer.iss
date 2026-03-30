@@ -3,8 +3,8 @@
 
 #define MyAppName "SpeechToText"
 #define MyAppVersion "1.0.0"
-#define MyAppPublisher "bouddahami"
-#define MyAppURL "https://github.com/bouddahami/SpeechToText-Windows"
+#define MyAppPublisher "yassirboudda"
+#define MyAppURL "https://github.com/yassirboudda/SpeechToText-Windows"
 #define MyAppExeName "SpeechToText.exe"
 
 [Setup]

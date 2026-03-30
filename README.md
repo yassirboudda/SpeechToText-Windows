@@ -6,7 +6,7 @@ Record speech, get instant transcription via Mistral's Voxtral API, and have it 
 
 ## Download & Install (No Python Required)
 
-> **Go to the [Releases page](https://github.com/bouddahami/SpeechToText-Windows/releases/latest) and download:**
+> **Go to the [Releases page](https://github.com/yassirboudda/SpeechToText-Windows/releases/latest) and download:**
 
 | File | Description |
 |------|-------------|
@@ -48,7 +48,7 @@ Record speech, get instant transcription via Mistral's Voxtral API, and have it 
 
 ```powershell
 # Clone the repo
-git clone https://github.com/bouddahami/SpeechToText-Windows.git
+git clone https://github.com/yassirboudda/SpeechToText-Windows.git
 cd SpeechToText-Windows
 
 # Install dependencies
@@ -95,5 +95,5 @@ Config is stored at `%APPDATA%\SpeechToText\config.json`.
 
 ## Other Platforms
 
-- [Linux version](https://github.com/bouddahami/SpeechToText-Linux)
-- [macOS version](https://github.com/bouddahami/SpeechToText-macOS)
+- [Linux version](https://github.com/yassirboudda/SpeechToText-Linux)
+- [macOS version](https://github.com/yassirboudda/SpeechToText-macOS)
