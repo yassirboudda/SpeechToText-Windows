@@ -95,5 +95,5 @@ Config is stored at `%APPDATA%\SpeechToText\config.json`.
 
 ## Other Platforms
 
-- [Linux version](https://github.com/bouddahami/SpeechToText)
+- [Linux version](https://github.com/bouddahami/SpeechToText-Linux)
 - [macOS version](https://github.com/bouddahami/SpeechToText-macOS)
